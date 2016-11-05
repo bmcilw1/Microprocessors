@@ -1,15 +1,23 @@
 ; Brian McIlwain
 ; Wenxiu Hu
-; Lab 8 Part 2
-; Modify and extend the code from Part 1 so that your code instead receives input
-; from the keyboard and mirrors it to the display in Keil.
-; Your overall order of operations should be:
-; 1) Configure UART0 to receive and transmit, including setting up P0.0, P0.1
-; 2) Loop:
-; a. Receive a character from UART0 by waiting for the buffer to be full then
-; loading in a byte from the address of U0START
-; b. Transmit this same character to UART0 by waiting for the buffer to be
-; clear then storing a byte at the address of U0START
+; Lab 9
+; Configure	UART0 to	receive	and	transmit	(as	in	Lab 8)
+; Output	"Enter	A:		0x" (as	in	Lab 8)
+; Receive	user	input	of	a	number in	hexadecimal,	echoing	it	to	the	screen (as	in	
+; Lab 8),	and	store	as	a	null-terminated	array	(ending	with	0).		Assume	that the	
+; number	can	have from 1	to	8	digits and	the	input	of	the	number	ends	with	a	
+; carriage	return.
+; Convert	the	entered	number	to	binary
+; Output	"Enter	B:		0x"
+; Receive	user input	of	a	number in	hexadecimal,	echoing	it	to	the	screen,	and	
+; store	as	a	null-terminated	array	(ending	with	0).		Assume	that the	number	
+; can	have	from	1	to	8	digits	and	the	input	of	the	number	ends	with	a	carriage	
+; return.
+; Convert	the	entered	number	to	binary
+; Compute	A +	B
+; Convert	the hexadecimal	representation	of	this sum to	ASCII (as	in	Lab	6)
+; Output	"A	+	B	=		0x"
+; Output	the	ASCII	form	of	the	sum
 
 ; Modified UARTdemo_mod.s
 ; modified UART code for LPC2104 from Hohl and Hinds, Section 16.2.5
@@ -98,4 +106,7 @@ waitT	ldrb r6, [r5, #lsr0]	; get status of buffer
 	strb r0, [r5]
 	pop {r5, r6, pc}
 
+msgA dcb "Enter A: 0x\0"
+msgB dcb "Enter B: 0x\0"
+msgAdd dcb "A + B = 0x\0"
 	end
